@@ -8,6 +8,7 @@ import styles from './styles';
 const {width} = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = width * 0.58;
+const SPACE_ITEM = (width - ITEM_SIZE) / 2;
 
 export const Home: FunctionComponent = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -38,10 +39,14 @@ export const Home: FunctionComponent = () => {
         scrollEventThrottle={16}
         renderItem={({item, index}) => {
           const inputRange = [
+            (index - 2) * ITEM_SIZE,
             (index - 1) * ITEM_SIZE,
             index * ITEM_SIZE,
-            (index + 1) * ITEM_SIZE,
           ];
+
+          if (item.left_spacer) {
+            return <View style={{width: SPACE_ITEM}}></View>;
+          }
 
           const translateY = scrollX.interpolate({
             inputRange,
