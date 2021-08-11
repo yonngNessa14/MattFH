@@ -55,7 +55,10 @@
       "@screens": ["src/screens"],
       "@screens/*": ["src/screens/*"],
       "@components": ["src/components"],
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "@svg/*": ["assets/svg/*.svg"],
+      "@utils": ["src/utils"],
+      "@utils/*": ["src/utils/*"]
     }
     /* Source Map Options */
     // "sourceRoot": "./",                    /* Specify the location where debugger should locate TypeScript files instead of source locations. */

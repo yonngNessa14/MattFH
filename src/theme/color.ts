@@ -6,4 +6,5 @@ export const color = {
   primary: palette.purple,
   textTitle: palette.deepPurple,
   textGrey: palette.grey,
+  background: palette.white,
 };

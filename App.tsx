@@ -1,26 +1,17 @@
-import React, {useState, FunctionComponent, useRef} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  StatusBar,
-  ImageBackground,
-  Animated,
-  Dimensions,
-} from 'react-native';
+import React, {FunctionComponent} from 'react';
+import {View, StatusBar, ImageBackground} from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {Bg} from '@images';
 import {Home} from '@screens';
+import {Footer, Screen} from '@components';
 
 const App = () => {
-  const scrollX = useRef(new Animated.Value(0)).current;
-
   const statusBar = () => {
     return (
       <>
         <StatusBar barStyle="light-content" />
         <View style={{backgroundColor: '#303371'}}>
-          <SafeAreaView edges={['left', 'right', 'top']}></SafeAreaView>
+          <SafeAreaView edges={['left', 'right', 'top']} />
         </View>
       </>
     );
@@ -32,18 +23,20 @@ const App = () => {
 
   const RenderWrapper: FunctionComponent<Props> = ({children}) => {
     return (
-      <View style={{flex: 1}}>
-        <ImageBackground
-          source={Bg}
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          resizeMode="cover">
-          {children}
-        </ImageBackground>
-      </View>
+      <Screen paddingHorizontal={0}>
+        <View style={{flex: 1}}>
+          <ImageBackground
+            source={Bg}
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            resizeMode="cover">
+            {children}
+          </ImageBackground>
+        </View>
+      </Screen>
     );
   };
   return (
@@ -51,7 +44,8 @@ const App = () => {
       <SafeAreaProvider>
         {statusBar()}
         <RenderWrapper>
-          <Home scrollX={scrollX} />
+          <Home />
+          <Footer />
         </RenderWrapper>
       </SafeAreaProvider>
     </>

@@ -1,29 +1,29 @@
-import React, {useState, FunctionComponent} from 'react';
-import {View, Text, Animated, Dimensions, Image} from 'react-native';
+import React, {FunctionComponent, useRef} from 'react';
+import {View, Text, Animated, Dimensions} from 'react-native';
+import {Avatar, Card} from '@components';
+import {ProfileImage} from '@images';
+import {dummyData} from '../../dummyData';
 import styles from './styles';
-import {Stone2} from '@images';
 
 const {width} = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = width * 0.58;
 
-type Props = {
-  scrollX: any;
-};
-
-export const Home: FunctionComponent<Props> = ({scrollX}) => {
-  const [data, setData] = useState([
-    {name: 'nelson'},
-    {name: 'neldsfson'},
-    {name: 'neldfason'},
-    {name: 'nelsfadfgdaon'},
-    {name: 'nelsfadffggdaon'},
-    {name: 'nelsfadfgggdaon'},
-  ]);
+export const Home: FunctionComponent = () => {
+  const scrollX = useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.container}>
+      <View style={styles.profileContainer}>
+        <Avatar size={15} source={ProfileImage} />
+        <Text style={styles.profileText}>Lottie Curtis</Text>
+        <View style={styles.productInfo}>
+          <Text>You have 3 products</Text>
+        </View>
+      </View>
+
       <Animated.FlatList
-        data={data}
+        data={dummyData}
+        showsHorizontalScrollIndicator={false}
         horizontal
         contentContainerStyle={{
           alignItems: 'center',
@@ -48,38 +48,15 @@ export const Home: FunctionComponent<Props> = ({scrollX}) => {
             outputRange: [0, -50, 0],
           });
           return (
-            <View
-              style={{
-                width: ITEM_SIZE,
-              }}>
-              <Animated.View
-                style={[
-                  styles.cardContainer,
-                  {
-                    marginHorizontal: SPACING,
-                    padding: SPACING * 2,
-                    transform: [{translateY}],
-                  },
-                ]}>
-                <View
-                  style={{
-                    width: '90%',
-                    height: 300,
-                    alignItems: 'center',
-                  }}>
-                  {/* <Image source={Stone2} /> */}
-                  <Text style={styles.cardTitle}>
-                    Moonstone {`\n`} Keychain
-                  </Text>
-                  <Text style={styles.cardSubtitle}>
-                    Choosing the Best Gemstonefor Your Necklace and Jewelry
-                  </Text>
-                </View>
-              </Animated.View>
-            </View>
+            <Card
+              item={item}
+              SPACING={SPACING}
+              translateY={translateY}
+              ITEM_SIZE={ITEM_SIZE}
+            />
           );
         }}
-        keyExtractor={item => item.name}
+        keyExtractor={item => item.title}
       />
     </View>
   );
